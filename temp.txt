@@ -1,0 +1,32 @@
+CREATE TABLE "user" (
+	"id"	INTEGER NOT NULL,
+	"username"	VARCHAR(30) NOT NULL UNIQUE,
+	"password"	VARCHAR(300) NOT NULL,
+	"date_created"	DATETIME,
+	"score"	INTEGER,
+	"email"	VARCHAR(30) NOT NULL UNIQUE,
+	PRIMARY KEY("id"),
+	UNIQUE("username")
+);
+
+CREATE TABLE "deck" (
+	"id"	INTEGER NOT NULL,
+	"deck_name"	VARCHAR(30),
+	"user"	VARCHAR NOT NULL,
+	"date_created"	DATETIME,
+	"score"	INTEGER,
+	"is_public"	BOOLEAN,
+	"last_rev"	DATETIME,
+	PRIMARY KEY("id"),
+	FOREIGN KEY("user") REFERENCES "user"("username")
+);
+
+CREATE TABLE "card" (
+	"card_id"	INTEGER NOT NULL,
+	"front"	VARCHAR(512) NOT NULL,
+	"back"	VARCHAR(512) NOT NULL,
+	"score"	INTEGER,
+	"deck"	VARCHAR NOT NULL,
+	PRIMARY KEY("card_id"),
+	FOREIGN KEY("deck") REFERENCES "deck"("deck_name")
+);
